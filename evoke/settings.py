@@ -149,7 +149,9 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
 }
 
 JWT_AUTH = {
@@ -158,3 +160,11 @@ JWT_AUTH = {
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
 }
 AUTH_USER_MODEL = 'eclinic_platform.User'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_HEADERS = ['*']
+CSRF_TRUSTED_ORIGINS=['http://localhost:3000']      
+

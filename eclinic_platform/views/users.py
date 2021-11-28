@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from eclinic_platform.models import User
 
 from eclinic_platform.serializers.users_serializer import SearchSerializer, UserSerializer
+from eclinic_platform.utilities.methods import paginateQueryset
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset            =   User.objects.all()
@@ -20,4 +21,4 @@ class UserViewSet(viewsets.ModelViewSet):
         orderby = request.data.get("orderby", None)
         keyword = request.data.get("keyword", None)
         user = User.objects.all()
-        return Response(SearchSerializer(user, many=True).data)
+        return paginateQueryset(self, user, SearchSerializer)
