@@ -27,7 +27,10 @@ SECRET_KEY = 'django-insecure-1bd)lk6r3ae6_=4=uc@t0upugx0giymu@(4t!tkl+hb4pm@4=m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '192.168.74.233'
+]
 
 
 # Application definition
@@ -154,3 +157,4 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH' : True,
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
 }
+AUTH_USER_MODEL = 'eclinic_platform.User'
