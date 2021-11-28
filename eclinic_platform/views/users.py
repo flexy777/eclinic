@@ -11,6 +11,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset            =   User.objects.all()
     serializer_class    =   UserSerializer
     pagination_class    =   PageNumberPagination
+    lookup_field = 'username'
 
 
     @action(detail=False, methods=["post", "get"], name="Search",  permission_classes=[])

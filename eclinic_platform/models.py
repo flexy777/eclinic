@@ -36,6 +36,7 @@ class User(AbstractUser):
     location_address_component = models.TextField(max_length=5120)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    avg_rating = models.FloatField(default=1.0, max_length=5.0)
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=255)
