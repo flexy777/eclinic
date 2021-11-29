@@ -48,7 +48,7 @@ class User(AbstractUser):
     location_address_component = models.TextField(max_length=5120)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    avg_rating = models.FloatField(default=1.0, max_length=5.0)
+    avg_rating = models.FloatField(default=1.0)
     checkup_someone = models.BooleanField(default=False)
     online_consult = models.BooleanField(default=True)
     home_service = models.BooleanField(default=False)
