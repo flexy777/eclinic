@@ -164,3 +164,9 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOW_HEADERS = ['*']
 CSRF_TRUSTED_ORIGINS=['http://localhost:3000']      
 
+# 'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'eclinic',
+#         'USER': 'evoke',
+#         'PASSWORD': 'Maxwell.12',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
