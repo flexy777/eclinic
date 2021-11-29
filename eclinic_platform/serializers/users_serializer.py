@@ -1,6 +1,7 @@
 from rest_framework import serializers, viewsets, status
-from eclinic_platform.models import User
+from eclinic_platform.models import Services, User
 from eclinic_platform.serializers.category_serializer import CategorySerializer
+from eclinic_platform.serializers.services_serializer import ServicesSerializer
 
 class UserSerializer(serializers.ModelSerializer):
            
@@ -36,3 +37,37 @@ class SearchSerializer(serializers.ModelSerializer):
       
       def get_categories(self, instance):
          return CategorySerializer(instance.category, many=True).data
+
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+      class Meta:
+            model = User
+            # fields = ['id', 'name', 'header_title', 'background_image', 'image', 'username', 'title', 'categories', 'location_address', 'location_lat', 'location_lng', 'location_address_component', 'avg_rating', 'checkup_Someone', 'online_Consult', 'home_Service' ]
+            # fields = '__all__'
+            # exclude = ('created_at', 'updated_at', 'password', 'is_staff')
+
+      name = serializers.SerializerMethodField()
+
+      def get_name(self, instance):
+         return instance.first_name+" "+instance.last_name
+
+      # def to_representation(self, instance):
+      #    return {
+      #       "username": instance.username,
+      #       "name": self.get_name()
+      #    }
+               
+      categories = serializers.SerializerMethodField()
+      
+      def get_categories(self, instance):
+         return CategorySerializer(instance.category, many=True).data
+         
+
+      services = serializers.SerializerMethodField()
+      
+      def get_services(self, instance):
+          services = Services.objects.filter(user=instance)
+          return ServicesSerializer(services, many=True).data
+

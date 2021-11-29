@@ -21,6 +21,7 @@ class Command(BaseCommand):
                 email = fake.free_email()
                 username = (last_name+"_"+first_name+"_"+str(randrange(1000))).lower()
                 
+                
                 user = {
                     "password": "123456",
                     "username": username,
@@ -41,11 +42,18 @@ class Command(BaseCommand):
                     "checkup_someone": [False, True][randrange(2)],
                     "online_consult": [False, True][randrange(2)],
                     "home_service": [False, True][randrange(2)],
-                    "role": "SPECIALIST"
+                    "role": "SPECIALIST",
+                    "free_consultation":[False, True][randrange(2)],
+                    "consultation_fee":randrange(2000,10000),
+                    "consultation_fee_duration":randrange(30,60)
                 }
+                
                 _user = User(**user)
                 _user.save()
                 
+                 
+
+
                 ids = np.random.randint(18, size=(4))
                 for i in ids:
                     if(i.item() > 0):
