@@ -12,12 +12,12 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset            =   User.objects.all()
     serializer_class    =   UserSerializer
     pagination_class    =   PageNumberPagination
-    lookup_field = 'username'
+    lookup_field        =   'username'
 
 
 
-@action(detail=True, methods=["post"], name="Search",  permission_classes=[])
-def search(self, request, pk=None):
+    @action(detail=False, methods=["post","get"], name="Search",  permission_classes=[])
+    def search(self, request, pk=None):
         category = request.data.get("category", [])
         orderby = request.data.get("orderby", None)
         keyword = request.data.get("keyword", None)

@@ -10,4 +10,5 @@ from eclinic_platform.serializers.category_serializer import CategorySerializer
 class CategoriesViewSet(viewsets.ModelViewSet):
     queryset            =   Categories.objects.all()
     serializer_class    =   CategorySerializer
-    pagination_class    =   PageNumberPagination
+    pagination_class    =   None
+

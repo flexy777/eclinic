@@ -10,11 +10,10 @@ SECTORS =(
 class Categories(models.Model):
     title = models.CharField(max_length=255)
     sector = models.CharField(max_length=255, choices=SECTORS)
-    image = models.ImageField(null=True, upload_to='categories')
+    image = models.ImageField(null=True, upload_to='categories', max_length=1024)
     keywords = models.TextField(max_length=5120, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
     def __str__(self):
         return self.title
@@ -23,9 +22,22 @@ class UserManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()
 
+
+USER_GROUPS =(
+    ("SPECIALIST", "SPECIALIST"),
+    ("USER", "USER"),
+    ("ADMINISTRATOR", "ADMINISTRATOR")
+)
+
+GENDERS =(
+    ("MALE", "MALE"),
+    ("FEMALE", "FEMALE")
+)
+
 class User(AbstractUser):
     header_title = models.CharField(max_length=255)
     title = models.CharField(max_length=50, null=True)
+    phone = models.CharField(max_length=50, null=True)
     background_image = models.ImageField(null=True, upload_to='usersBg')
     image = models.ImageField(null=True, upload_to='users')
     category = models.ManyToManyField(Categories)
@@ -37,9 +49,11 @@ class User(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     avg_rating = models.FloatField(default=1.0, max_length=5.0)
-    checkup_Someone = models.BooleanField(default=False)
-    online_Consult = models.BooleanField(default=True)
-    home_Service = models.BooleanField(default=False)
+    checkup_someone = models.BooleanField(default=False)
+    online_consult = models.BooleanField(default=True)
+    home_service = models.BooleanField(default=False)
+    role = models.CharField(max_length=255, choices=USER_GROUPS, default="SPECIALIST")
+    gender = models.CharField(max_length=20, choices=GENDERS, default="FEMALE")
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=255)

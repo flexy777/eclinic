@@ -22,11 +22,11 @@ from rest_framework.routers import DefaultRouter
 
 
 # Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
+# router = routers.DefaultRouter()
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-     path('', include(router.urls)),
+    #  path('', include(router.urls)),
     path(r'api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(r'api/v1/', include('eclinic_platform.urls'), name='json'),
 ]

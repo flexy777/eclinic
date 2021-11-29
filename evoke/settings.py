@@ -27,16 +27,11 @@ SECRET_KEY = 'django-insecure-1bd)lk6r3ae6_=4=uc@t0upugx0giymu@(4t!tkl+hb4pm@4=m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '192.168.74.233'
-]
-
 
 # Application definition
 
 INSTALLED_APPS = [
-     'rest_framework',
+    'rest_framework',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
     'eclinic_platform',
+    'faker',
 ]
 
 MIDDLEWARE = [
@@ -85,10 +81,10 @@ WSGI_APPLICATION = 'evoke.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.mysql',
-        'NAME': 'eclinic',
-        'USER': 'evoke',
-        'PASSWORD': 'Maxwell.12',
+        'ENGINE': 'mysql.connector.django',
+        'NAME': ' eclinic',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }

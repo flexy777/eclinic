@@ -9,8 +9,8 @@ from eclinic_platform.views.testimonial import TestimonialViewSet
 
 router = DefaultRouter()
 router.register(r'categories', CategoriesViewSet, 'categories'),
-router.register(r'user', UserViewSet, 'user'),
-router.register(r'testimonial', TestimonialViewSet, 'testimonial')
+router.register(r'users', UserViewSet, 'users'),
+router.register(r'testimonials', TestimonialViewSet, 'testimonials')
 
 
 urlpatterns = router.urls

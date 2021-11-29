@@ -7,3 +7,8 @@ class CategorySerializer(serializers.ModelSerializer):
        model = Categories
        exclude = ('created_at', 'updated_at')
     #    fields = '__all__'
+    
+    image = serializers.SerializerMethodField()
+    
+    def get_image(self, instance):
+      return str(instance.image)
