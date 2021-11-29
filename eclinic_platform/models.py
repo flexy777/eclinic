@@ -7,6 +7,7 @@ SECTORS =(
     ("CONDITION", "CONDITION"),
     ("PROCEDURE", "PROCEDURE")
 )
+
 class Categories(models.Model):
     title = models.CharField(max_length=255)
     sector = models.CharField(max_length=255, choices=SECTORS)
