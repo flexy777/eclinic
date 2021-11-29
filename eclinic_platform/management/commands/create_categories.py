@@ -13,6 +13,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for item in CATEGORIES:
             Categories.objects.create(
+                            id=item["id"],
                             title=item["title"], 
                             sector=item["sector"],
                             image=item["image"],
