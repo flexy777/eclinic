@@ -5,7 +5,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from eclinic_platform.models import User
 
-from eclinic_platform.serializers.users_serializer import SearchSerializer, UserSerializer
+from eclinic_platform.serializers.users_serializer import UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset            =   User.objects.all()
@@ -13,10 +13,11 @@ class UserViewSet(viewsets.ModelViewSet):
     pagination_class    =   PageNumberPagination
 
 
-    @action(detail=False, methods=["post", "get"], name="Search",  permission_classes=[])
-    def search(self, request, pk=None):
+
+@action(detail=True, methods=["post"], name="Search",  permission_classes=[])
+def search(self, request, pk=None):
         category = request.data.get("category", [])
         orderby = request.data.get("orderby", None)
         keyword = request.data.get("keyword", None)
         user = User.objects.all()
-        return Response(SearchSerializer(user, many=True).data)
+        return Response(UserSerializer(user, many=True).data)
