@@ -5,7 +5,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from eclinic_platform.models import User
 
-from eclinic_platform.serializers.users_serializer import SearchSerializer, UserSerializer
+from eclinic_platform.serializers.users_serializer import ProfileSerializer, SearchSerializer, UserSerializer
 from eclinic_platform.utilities.methods import paginateQueryset
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -23,3 +23,12 @@ class UserViewSet(viewsets.ModelViewSet):
         keyword = request.data.get("keyword", None)
         user = User.objects.all()
         return paginateQueryset(self, user, SearchSerializer)
+
+
+    @action(detail=True, methods=["get"], name="Profile",  permission_classes=[])
+    def profile(self, request, username=None):
+        try:
+            user = User.objects.get(username=username)
+            return Response(ProfileSerializer(user, many=False).data)
+        except User.DoesNotExist:
+            return Response({"detail" : "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
