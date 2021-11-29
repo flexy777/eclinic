@@ -19,25 +19,6 @@ class Categories(models.Model):
         return self.title
 
 
-class Communication(models.Model):
-   
-
-    phone_enabled = models.BooleanField(default=True)
-    phone_number = models.CharField(max_length=50, null=True)
-
-    whatsapp_enabled = models.BooleanField(default=True)
-    whatsapp_number = models.CharField(max_length=50, null=True)
-
-    zoom_enabled = models.BooleanField(default=True)
-    zoom_link = models.CharField(max_length=255, null=True)
-
-    google_meet_enabled = models.BooleanField(default=True)
-    google_meet_link = models.CharField(max_length=255, null=True)
-
-    email_enabled = models.BooleanField(default=True)
-    email_address = models.EmailField(max_length=250, null=True)
-
-
 class UserManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()
@@ -77,7 +58,7 @@ class User(AbstractUser):
     free_consultation = models.BooleanField(default=False)
     consultation_fee = models.FloatField(null = True)
     consultation_fee_duration = models.FloatField(null = True)
-    communication_mode = models.OneToOneField(Communication, on_delete=models.CASCADE, null=True)
+    
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=255)
@@ -102,4 +83,24 @@ class Services(models.Model):
     description = models.TextField(max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Communication(models.Model):
+   
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, default=1)
+    
+    phone_enabled = models.BooleanField(default=True)
+    phone_number = models.CharField(max_length=50, null=True)
+
+    whatsapp_enabled = models.BooleanField(default=True)
+    whatsapp_number = models.CharField(max_length=50, null=True)
+
+    zoom_enabled = models.BooleanField(default=True)
+    zoom_link = models.CharField(max_length=255, null=True)
+
+    google_meet_enabled = models.BooleanField(default=True)
+    google_meet_link = models.CharField(max_length=255, null=True)
+
+    email_enabled = models.BooleanField(default=True)
+    email_address = models.EmailField(max_length=250, null=True)
 
