@@ -71,15 +71,16 @@ class ProfileSerializer(serializers.ModelSerializer):
          modes = [
                {
                      "icon": "message-square",
-                     "name": "In-App Chat"
+                     "name": "In-App Chat",
                }
          ]
+
          comms = Communication.objects.filter(user=instance).first()
          if(not(comms is None)):
             if(comms.phone_enabled):
                modes.append({
                      "icon": "phone",
-                     "name": "In-App Chat"
+                     "name": "In-App Chat",
                })
                
             if(comms.email_enabled):
