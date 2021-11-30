@@ -1,5 +1,5 @@
 from rest_framework import serializers, viewsets, status
-from eclinic_platform.models import Services, User
+from eclinic_platform.models import Communication, Services, User
 from eclinic_platform.serializers.category_serializer import CategorySerializer
 from eclinic_platform.serializers.services_serializer import ServicesSerializer
 
@@ -46,19 +46,13 @@ class ProfileSerializer(serializers.ModelSerializer):
             model = User
             # fields = ['id', 'name', 'header_title', 'background_image', 'image', 'username', 'title', 'categories', 'location_address', 'location_lat', 'location_lng', 'location_address_component', 'avg_rating', 'checkup_Someone', 'online_Consult', 'home_Service' ]
             # fields = '__all__'
-            # exclude = ('created_at', 'updated_at', 'password', 'is_staff')
+            exclude = ('created_at', 'updated_at', 'password', 'is_staff')
 
       name = serializers.SerializerMethodField()
 
       def get_name(self, instance):
          return instance.first_name+" "+instance.last_name
-
-      # def to_representation(self, instance):
-      #    return {
-      #       "username": instance.username,
-      #       "name": self.get_name()
-      #    }
-               
+      
       categories = serializers.SerializerMethodField()
       
       def get_categories(self, instance):
@@ -71,3 +65,44 @@ class ProfileSerializer(serializers.ModelSerializer):
           services = Services.objects.filter(user=instance)
           return ServicesSerializer(services, many=True).data
 
+      communications = serializers.SerializerMethodField()
+      
+      def get_communications(self, instance):
+         modes = [
+               {
+                     "icon": "message-square",
+                     "name": "In-App Chat"
+               }
+         ]
+         comms = Communication.objects.filter(user=instance).first()
+         if(not(comms is None)):
+            if(comms.phone_enabled):
+               modes.append({
+                     "icon": "phone",
+                     "name": "In-App Chat"
+               })
+               
+            if(comms.email_enabled):
+               modes.append({
+                     "icon": "mail",
+                     "name": "Email"
+               })
+               
+            if(comms.whatsapp_enabled):
+               modes.append({
+                     "icon": "message-circle",
+                     "name": "Whatapp"
+               })
+            if(comms.zoom_enabled):
+               modes.append({
+                     "icon": "video",
+                     "name": "Zoom Meeting"
+               })
+            if(comms.google_meet_enabled):
+               modes.append({
+                     "icon": "plus",
+                     "name": "Google Meet"
+               })
+            
+         
+         return modes
