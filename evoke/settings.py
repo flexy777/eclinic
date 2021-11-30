@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'evoke.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eclinic',
-        'USER': 'evoke',
-        'PASSWORD': 'Maxwell.12',
+        'ENGINE': 'mysql.connector.django',
+        'NAME': ' eclinic',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }
