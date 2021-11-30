@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import datetime
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -164,9 +165,17 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOW_HEADERS = ['*']
 CSRF_TRUSTED_ORIGINS=['http://localhost:3000']      
 
+<<<<<<< HEAD
 # 'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'eclinic',
 #         'USER': 'evoke',
 #         'PASSWORD': 'Maxwell.12',
 #         'HOST': 'localhost',
 #         'PORT': '3306',
+=======
+
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = (os.path.join(BASE_DIR, 'media'))
+SITE_URL = 'http://localhost:8000'
+>>>>>>> 7d1988fbd084dfaa03d148866dbecaee055277e9

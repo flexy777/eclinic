@@ -16,8 +16,8 @@ router.register(r'categories', CategoriesViewSet, 'categories'),
 router.register(r'users', UserViewSet, 'users'),
 router.register(r'testimonials', TestimonialViewSet, 'testimonials')
 router.register(r'services',ServicesViewSet, 'services')
-router.register(r'review', ReviewViewSet, 'review')
-router.register(r'communication', CommunicationViewSet, 'communication')
+router.register(r'reviews', ReviewViewSet, 'reviews')
+router.register(r'communications', CommunicationViewSet, 'communications')
 
 
 urlpatterns = router.urls

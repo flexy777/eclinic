@@ -59,6 +59,7 @@ class User(AbstractUser):
     free_consultation = models.BooleanField(default=False)
     consultation_fee = models.FloatField(null = True)
     consultation_fee_duration = models.FloatField(null = True)
+    is_verified = models.BooleanField(default=False)
     
 
 class Testimonial(models.Model):
@@ -69,9 +70,17 @@ class Testimonial(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
    
 
+RATINGS =[
+    (5, 5),
+    (4, 4),
+    (3, 3),
+    (2, 2),
+    (1, 1)
+]
+
 class Review(models.Model):
     comment = models.TextField(max_length=5120)
-    rating = models.FloatField(default=1.0)
+    rating = models.IntegerField(default=1.0, choices=RATINGS)
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer')
     doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='doctor')
     created_at = models.DateTimeField(auto_now_add=True)
