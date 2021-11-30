@@ -1,5 +1,5 @@
 from rest_framework import serializers, viewsets, status
-from eclinic_platform.models import Communication, Services, User
+from eclinic_platform.models import Communication, Favourite, Services, User
 from eclinic_platform.serializers.category_serializer import CategorySerializer
 from eclinic_platform.serializers.services_serializer import ServicesSerializer
 
@@ -106,3 +106,56 @@ class ProfileSerializer(serializers.ModelSerializer):
             
          
          return modes
+
+
+      extra_options = serializers.SerializerMethodField()
+      
+      def get_extra_options(self, instance):
+        options = [
+               {
+                     "name": "online_consult",
+                     "label": "Online Consult"
+               }
+         ]
+         
+        if(instance.checkup_someone):
+               options.append({
+               "name": "checkup_someone",
+               "label": "Checkup Someone"
+               })
+                  
+        if(instance.home_service):
+               options.append({
+                        "name": "home_service",
+                        "label": "Home Service"
+                  })
+                  
+        if(instance.free_consultation):
+               options.append({
+                        "name": "free_consultation",
+                        "label": "Free Consultation"
+                  })
+        
+        return options
+
+
+
+
+
+class FavouriteSerializer(serializers.ModelSerializer):
+
+      class Meta:
+            model = User
+            # fields = ['id', 'name', 'header_title', 'background_image', 'image', 'username', 'title', 'categories', 'location_address', 'location_lat', 'location_lng', 'location_address_component', 'avg_rating', 'checkup_Someone', 'online_Consult', 'home_Service' ]
+            # fields = '__all__'
+            exclude = ('created_at', 'updated_at', 'password', 'is_staff')
+
+
+      
+   
+
+
+      def to_representation(self, instance):
+          return {
+                
+          }

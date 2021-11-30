@@ -165,17 +165,7 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOW_HEADERS = ['*']
 CSRF_TRUSTED_ORIGINS=['http://localhost:3000']      
 
-<<<<<<< HEAD
-# 'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'eclinic',
-#         'USER': 'evoke',
-#         'PASSWORD': 'Maxwell.12',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-=======
-
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'media'))
 SITE_URL = 'http://localhost:8000'
->>>>>>> 7d1988fbd084dfaa03d148866dbecaee055277e9

@@ -3,6 +3,7 @@ from rest_framework_simplejwt import views as jwt_views
 
 from eclinic_platform.views.categories import CategoriesViewSet
 from eclinic_platform.views.communications import CommunicationViewSet
+from eclinic_platform.views.favourite import FavouriteViewSet
 from eclinic_platform.views.reviews import ReviewViewSet
 from eclinic_platform.views.services import ServicesViewSet
 from eclinic_platform.views.users import  UserViewSet
@@ -18,6 +19,7 @@ router.register(r'testimonials', TestimonialViewSet, 'testimonials')
 router.register(r'services',ServicesViewSet, 'services')
 router.register(r'reviews', ReviewViewSet, 'reviews')
 router.register(r'communications', CommunicationViewSet, 'communications')
+router.register(r'favourites', FavouriteViewSet, 'favourites')
 
 
 urlpatterns = router.urls

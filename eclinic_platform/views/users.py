@@ -4,9 +4,9 @@ from rest_framework.decorators import action
 from rest_framework import serializers, viewsets, status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from eclinic_platform.models import Review, User
+from eclinic_platform.models import Favourite, Review, User
 
-from eclinic_platform.serializers.users_serializer import ProfileSerializer, SearchSerializer, UserSerializer
+from eclinic_platform.serializers.users_serializer import FavouriteSerializer, ProfileSerializer, SearchSerializer, UserSerializer
 from eclinic_platform.utilities.methods import paginateQueryset
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -39,6 +39,20 @@ class UserViewSet(viewsets.ModelViewSet):
         try:
             user = User.objects.get(username=username)
             return paginateQueryset(self, Review.objects.filter(doctor=user), ReviewSerializer)
+        except User.DoesNotExist:
+            return Response({"detail" : "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+
+
+
+    # Customers
+    @action(detail=True, methods=["get"], name="Favourites",  permission_classes=[])
+    def favourites(self, request, username=None):
+        try:
+            user = User.objects.get(username=username)
+            return paginateQueryset(self, user.get_favourites(), SearchSerializer)
         except User.DoesNotExist:
             return Response({"detail" : "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
     
