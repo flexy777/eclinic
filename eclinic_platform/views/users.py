@@ -42,9 +42,6 @@ class UserViewSet(viewsets.ModelViewSet):
         except User.DoesNotExist:
             return Response({"detail" : "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
 
-    
-
-
 
 
     # Customers
@@ -57,3 +54,10 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({"detail" : "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
     
 
+    @action(detail=False, methods=["post"], name="Search Username",  permission_classes=[])
+    def checkuser(self, request, username=None):
+        username = request.data.get("username", None)
+        user = User.objects.filter(username=username).first()
+        if(user):
+            return Response({ "status": False, "detail": "Username already taken by another user." })
+        return Response({ "status": True, "detail": "Username available" })
