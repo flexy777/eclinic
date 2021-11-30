@@ -65,6 +65,13 @@ class User(AbstractUser):
         favs = Favourite.objects.filter(user_id = self.pk).values_list('specialist_id', flat=True)    
         return User.objects.filter(pk__in = favs)
 
+    def get_related_specialists(self):
+        return User.objects.exclude(pk = self.pk)[:10]
+    
+    def get_name(self):
+        return self.first_name+" "+self.last_name
+
+
 class Testimonial(models.Model):
     name = models.CharField(max_length=255)
     comment = models.TextField(max_length=5120)

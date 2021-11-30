@@ -2,6 +2,7 @@ from rest_framework import serializers, viewsets, status
 from eclinic_platform.models import Communication, Favourite, Services, User
 from eclinic_platform.serializers.category_serializer import CategorySerializer
 from eclinic_platform.serializers.services_serializer import ServicesSerializer
+from eclinic_platform.utilities.methods import toFileUrl
 
 class UserSerializer(serializers.ModelSerializer):
            
@@ -51,12 +52,26 @@ class ProfileSerializer(serializers.ModelSerializer):
       name = serializers.SerializerMethodField()
 
       def get_name(self, instance):
-         return instance.first_name+" "+instance.last_name
+         return instance.get_name()
       
       categories = serializers.SerializerMethodField()
       
       def get_categories(self, instance):
          return CategorySerializer(instance.category, many=True).data
+
+      related_specialists = serializers.SerializerMethodField()
+      def get_related_specialists(self, instance):
+            return [{
+                  "image" : toFileUrl(x.image),
+                  "rating" : x.avg_rating,
+                  "title" : x.title,
+                  "location" : x.location_address,
+                  "name" : x.get_name(),
+                  "header_title" : x.header_title,
+                  "consultation_fee" : x.consultation_fee,
+                  "consultation_fee_duration" : x.consultation_fee_duration
+            } for x in instance.get_related_specialists()]
+
          
 
       services = serializers.SerializerMethodField()
