@@ -60,7 +60,10 @@ class User(AbstractUser):
     consultation_fee = models.FloatField(null = True)
     consultation_fee_duration = models.FloatField(null = True)
     is_verified = models.BooleanField(default=False)
-    
+
+    def get_favourites(self):
+        favs = Favourite.objects.filter(user_id = self.pk).values_list('specialist_id', flat=True)    
+        return User.objects.filter(pk__in = favs)
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=255)
@@ -113,4 +116,10 @@ class Communication(models.Model):
 
     email_enabled = models.BooleanField(default=True)
     email_address = models.EmailField(max_length=250, null=True)
+
+
+
+class Favourite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favourite_user')
+    specialist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favourite_specialist')
 

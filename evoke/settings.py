@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'evoke.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': ' eclinic',
-        'USER': 'root',
-        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'eclinic',
+        'USER': 'evoke',
+        'PASSWORD': 'Maxwell.12',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -164,7 +164,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_HEADERS = ['*']
 CSRF_TRUSTED_ORIGINS=['http://localhost:3000']      
-
 
 
 MEDIA_URL = 'media/'
