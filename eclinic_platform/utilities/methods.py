@@ -22,3 +22,16 @@ def toFileUrl(file):
 
 def toDateString(date):
     return date.strftime("%d %b %Y %I:%M%p")
+
+
+def shorten_user(instance):
+    return {
+        "id" : instance.id,
+        "username": instance.username,
+        "email" : instance.email,
+        "phone": instance.phone,
+        "address_location": instance.location_address,
+        "image": instance.get_image(),
+        "name": instance.get_name()
+
+        }

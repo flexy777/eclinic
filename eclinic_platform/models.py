@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
 
+from eclinic_platform.utilities.methods import toFileUrl
+
 
 # Create your models here.
 SECTORS =(
@@ -75,6 +77,9 @@ class User(AbstractUser):
 
     def my_appointments(self):
         return Appointment.objects.filter(Q(patient=self)|Q(specialist=self))
+
+    def get_image(self):
+        return toFileUrl(self.image)
 
 
 
