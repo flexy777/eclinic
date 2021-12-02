@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from eclinic_platform.views.auth import CustomTokenObtainPairView
 from rest_framework import routers, serializers, viewsets
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework.routers import DefaultRouter
@@ -28,5 +29,6 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     #  path('', include(router.urls)),
     path(r'api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(r'api/v1/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path(r'api/v1/', include('eclinic_platform.urls'), name='json'),
 ]
