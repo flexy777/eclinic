@@ -24,7 +24,7 @@ router.register(r'services',ServicesViewSet, 'services')
 router.register(r'reviews', ReviewViewSet, 'reviews')
 router.register(r'communications', CommunicationViewSet, 'communications')
 router.register(r'favourites', FavouriteViewSet, 'favourites')
-router.register(r'appointment', AppointmentViewSet, 'appointment')
+router.register(r'appointments', AppointmentViewSet, 'appointments')
 router.register(r'appointment_details', AppointmentDetailsViewSet, 'appointment_details')
 router.register(r'transactions', TransactionsViewSet, 'transactions')
 

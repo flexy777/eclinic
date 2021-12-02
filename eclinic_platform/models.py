@@ -136,31 +136,6 @@ class Favourite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favourite_user')
     specialist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favourite_specialist')
 
-
-APPOINTMENT_STATUS =(
-    ("PENDING", "PENDING"),
-    ("ACCEPTED", "ACCEPTED"),
-    ("DECLINED", "DECLINED"),
-    ("COMPLETED", "COMPLETED")
-)
-
-class Appointment(models.Model):
-    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient')
-    specialist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='specialist')
-    status = models.CharField(max_length=255, choices=APPOINTMENT_STATUS, default="PENDING")
-    date_time = models.DateTimeField()
-    transaction = models.FloatField(null=True)
-    message = models.TextField(max_length=5120)
-
-
-
-class AppointmentDetails(models.Model):
-    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    summary = models.TextField(max_length=5120)
-    score = models.IntegerField(null=True)
-    recommendations = models.TextField(max_length=5120)
-
 TRANSACTION_TYPE =(
     ("DEBIT", "DEBIT"),
     ("CREDIT", "CREDIT")
@@ -180,8 +155,32 @@ PAYMENT_MODE =(
 class Transactions(models.Model):
     amount = models.FloatField(null=True)
     type = models.CharField(max_length=255, choices=TRANSACTION_TYPE)
-    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name='appointment_transaction')
     status = models.CharField(max_length=255, choices=TRANSACTION_STATUS)
     note = models.TextField(max_length=5120)
     payment_mode = models.CharField(max_length=255, choices=PAYMENT_MODE, default="PAYSTACK")
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver', null=True)
+
+
     
+APPOINTMENT_STATUS =(
+    ("PENDING", "PENDING"),
+    ("ACCEPTED", "ACCEPTED"),
+    ("DECLINED", "DECLINED"),
+    ("COMPLETED", "COMPLETED")
+)
+
+class Appointment(models.Model):
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient')
+    specialist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='specialist')
+    status = models.CharField(max_length=255, choices=APPOINTMENT_STATUS, default="PENDING")
+    date_time = models.DateTimeField()
+    transaction = models.ForeignKey(Transactions, on_delete=models.CASCADE, null=True)
+    message = models.TextField(max_length=5120)
+
+class AppointmentDetails(models.Model):
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    summary = models.TextField(max_length=5120)
+    score = models.IntegerField(null=True)
+    recommendations = models.TextField(max_length=5120)
+
