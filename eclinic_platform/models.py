@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db.models import Q
+
 
 # Create your models here.
 SECTORS =(
@@ -70,6 +72,10 @@ class User(AbstractUser):
     
     def get_name(self):
         return self.first_name+" "+self.last_name
+
+    def my_appointments(self):
+        return Appointment.objects.filter(Q(patient=self)|Q(specialist=self))
+
 
 
 class Testimonial(models.Model):

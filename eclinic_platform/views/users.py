@@ -1,3 +1,4 @@
+from eclinic_platform.serializers.appointment_serializer import AppointmentSerializer
 from eclinic_platform.serializers.reviews_serializer import ReviewSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
@@ -61,3 +62,13 @@ class UserViewSet(viewsets.ModelViewSet):
         if(user):
             return Response({ "status": False, "detail": "Username already taken by another user." })
         return Response({ "status": True, "detail": "Username available" })
+
+
+
+    @action(detail=True, methods=["get"], name="Appointment",  permission_classes=[])
+    def appointments(self, request, username=None):
+        try:
+            user = User.objects.get(username=username)
+            return paginateQueryset(self, user.my_appointments(), AppointmentSerializer)
+        except User.DoesNotExist:
+            return Response({"detail" : "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
