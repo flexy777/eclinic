@@ -12,6 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
        fields = '__all__'
       #  exclude = ('created_at', 'updated_at', 'password', 'is_staff')
 
+       name = serializers.SerializerMethodField()
+
+       def get_name(self, instance):
+         return instance.first_name+" "+instance.last_name
 
 
 
@@ -69,7 +73,9 @@ class ProfileSerializer(serializers.ModelSerializer):
                   "name" : x.get_name(),
                   "header_title" : x.header_title,
                   "consultation_fee" : x.consultation_fee,
-                  "consultation_fee_duration" : x.consultation_fee_duration
+                  "consultation_fee_duration" : x.consultation_fee_duration,
+                  "gender" : x.gender,
+                  "username" : x.username,
             } for x in instance.get_related_specialists()]
 
          
@@ -95,7 +101,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             if(comms.phone_enabled):
                modes.append({
                      "icon": "phone",
-                     "name": "In-App Chat",
+                     "name": "Local Phone",
                })
                
             if(comms.email_enabled):
